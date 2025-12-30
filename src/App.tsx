@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import { useState, useEffect } from 'react'
+// import type { PokemonSprites } from './types';
+// import { fetchPokemonSprites } from './pokemon';
+import { usePokemon } from './usePokemon';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    const amount = 10;
+    const { data: sprites, isLoading } = usePokemon(amount);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            {
+                (isLoading ? <h1>Loading...</h1>
+                    : sprites.map(
+                        sprite =>
+                            <img key={crypto.randomUUID()} src={sprite.front_default} alt={sprite.front_default}></img>
+                    ))
+            }
+
+        </>
+    )
 }
-
 export default App
