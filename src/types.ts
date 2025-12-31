@@ -1,6 +1,7 @@
-type PokemonSprites = {
+type PokemonSprite = {
+    name: string;
     front_default: string;
     front_shiny: string;
 }
 
-export type { PokemonSprites }
+export type { PokemonSprite }

@@ -1,11 +1,29 @@
 import { useState, useEffect } from 'react';
-import type { PokemonSprites } from './types';
+import type { PokemonSprite } from './types';
+
+function generateUniqueRandom(amount: number) {
+    const MAX_POKEMON = 1025;
+
+    // guard against max pokemon
+    if (amount > MAX_POKEMON) {
+        throw new Error(`Cannot generate more than ${MAX_POKEMON} unique Pokémon IDs`);
+    }
+
+    const set = new Set<number>();
+
+    // max pokemon number is 1025
+    while (set.size < amount) {
+        set.add(Math.floor(Math.random() * MAX_POKEMON) + 1);
+    }
+
+    return set;
+}
 
 function usePokemon(amount: number): {
-    data: PokemonSprites[];
+    data: PokemonSprite[];
     isLoading: boolean;
 } {
-    const [data, setData] = useState<PokemonSprites[]>([]);
+    const [data, setData] = useState<PokemonSprite[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -13,10 +31,7 @@ function usePokemon(amount: number): {
 
         const fetchPokemon = async () => {
             setIsLoading(true);
-            const randomInts = Array.from(
-                { length: amount },
-                () => Math.floor(Math.random() * 1025) + 1
-            );
+            const randomInts = Array.from(generateUniqueRandom(amount));
 
             const responses = randomInts.map((id) =>
                 fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -25,7 +40,11 @@ function usePokemon(amount: number): {
             const jsonData = await Promise.all(
                 results.map((res) => res.json())
             );
-            const sprites = jsonData.map((data) => data.sprites);
+            const sprites = jsonData.map(data => ({
+                name: data.name,
+                front_default: data.sprites.front_default,
+                front_shiny: data.sprites.front_shiny,
+            }));
 
             if (!ignore) {
                 setData(sprites);

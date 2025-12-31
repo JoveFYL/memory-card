@@ -1,22 +1,23 @@
-// import { useState, useEffect } from 'react'
-// import type { PokemonSprites } from './types';
-// import { fetchPokemonSprites } from './pokemon';
+// import { useState, useEffect } from 'react';
 import { usePokemon } from './usePokemon';
-import './App.css'
+import Card from './components/Card';
+import './styles/styles.css'
 
 function App() {
-    const amount = 10;
+    const amount = 5;
     const { data: sprites, isLoading } = usePokemon(amount);
+
+    if (isLoading) {
+        return <h1>Loading...</h1>;
+    }
 
     return (
         <>
-            {
-                (isLoading ? <h1>Loading...</h1>
-                    : sprites.map(
-                        sprite =>
-                            <img key={crypto.randomUUID()} src={sprite.front_default} alt={sprite.front_default}></img>
-                    ))
-            }
+            <div className="cards-container">
+                {sprites.map(sprite =>
+                    <Card key={crypto.randomUUID()} sprite={sprite} />
+                )}
+            </div>
 
         </>
     )
