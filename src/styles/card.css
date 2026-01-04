@@ -3,9 +3,10 @@
 .card-container {
     height: 250px;
     width: 180px;
+    perspective: 1000px;
 }
 
-.card-container:hover > .card {
+.flipped .card {
     transform: rotateY(180deg);
     cursor: pointer;
 }

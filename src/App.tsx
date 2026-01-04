@@ -1,11 +1,17 @@
-// import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { usePokemon } from './usePokemon';
-import Card from './components/Card';
 import './styles/styles.css'
+import type { PokemonSprite } from './types';
+import Cards from './components/Cards';
 
 function App() {
     const amount = 5;
     const { data: sprites, isLoading } = usePokemon(amount);
+    const [pokemons, setPokemons] = useState<PokemonSprite[]>([]);
+
+    useEffect(() => {
+        setPokemons(sprites);
+    }, [sprites]);
 
     if (isLoading) {
         return <h1>Loading...</h1>;
@@ -13,12 +19,7 @@ function App() {
 
     return (
         <>
-            <div className="cards-container">
-                {sprites.map(sprite =>
-                    <Card key={crypto.randomUUID()} sprite={sprite} />
-                )}
-            </div>
-
+            <Cards pokemons={pokemons} setPokemons={setPokemons} />
         </>
     )
 }

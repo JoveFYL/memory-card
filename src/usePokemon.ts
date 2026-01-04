@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 import type { PokemonSprite } from './types';
 
+function shufflePokemon(sprites: PokemonSprite[]) {
+    let lastIndex = sprites.length - 1;
+    while (lastIndex > 0) {
+        const randomIndex = Math.floor(Math.random() * lastIndex);
+        const temp = sprites[randomIndex];
+        sprites[randomIndex] = sprites[lastIndex];
+        sprites[lastIndex] = temp;
+        lastIndex -= 1;
+        console.log("shuffled");
+    }
+
+    return [...sprites];
+}
+
 function generateUniqueRandom(amount: number) {
     const MAX_POKEMON = 1025;
 
@@ -62,4 +76,4 @@ function usePokemon(amount: number): {
     return { data, isLoading };
 }
 
-export { usePokemon };
+export { usePokemon, shufflePokemon };

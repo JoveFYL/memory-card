@@ -1,9 +1,9 @@
 import '../styles/card.css'
 import type { PokemonSprite } from '../types';
 
-function Card({ sprite }: { sprite: PokemonSprite }) {
+function Card({ onClick, sprite }: { onClick: React.MouseEventHandler<HTMLButtonElement>, sprite: PokemonSprite }) {
     return (
-        <div className="card-container">
+        <button className="card-container" onClick={onClick}>
             <div className="card">
                 <div className="front">
                     <img src="/card.png" alt="card.png" />
@@ -13,7 +13,7 @@ function Card({ sprite }: { sprite: PokemonSprite }) {
                     <h2 className="back-h2">{sprite.name}</h2>
                 </div>
             </div>
-        </div>
+        </button>
     );
 }
 
