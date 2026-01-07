@@ -15,6 +15,13 @@
     height: 100%;
 }
 
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .title-container {
     display: flex;
     justify-content: center;
@@ -53,15 +60,16 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
-    max-height: 100vh;
+    gap: 15px;  
 }
 
 
 @media (max-width: 370px) {
     .cards-container, .flipped {
-        overflow-y: scroll;
-    } 
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
 }
 
 

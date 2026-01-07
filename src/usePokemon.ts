@@ -32,7 +32,7 @@ function generateUniqueRandom(amount: number) {
     return set;
 }
 
-function usePokemon(amount: number): {
+function usePokemon(amount: number, round: number, fetchData: boolean): {
     data: PokemonSprite[];
     isLoading: boolean;
 } {
@@ -40,6 +40,9 @@ function usePokemon(amount: number): {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        // if the game has not started, do not fetch data
+        if (!fetchData) return;
+
         let ignore = false;
 
         const fetchPokemon = async () => {
@@ -70,7 +73,7 @@ function usePokemon(amount: number): {
         return () => {
             ignore = true;
         };
-    }, [amount]);
+    }, [amount, round, fetchData]);
 
     return { data, isLoading };
 }

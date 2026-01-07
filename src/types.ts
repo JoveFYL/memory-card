@@ -4,6 +4,6 @@ type PokemonSprite = {
     front_shiny: string;
 }
 
-type GameStatus = "start" | "end" | "playing" | "win" | "lose";
+type GameStatus = "start" | "playing" | "win" | "lose";
 
 export type { PokemonSprite, GameStatus }

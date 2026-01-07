@@ -1,0 +1,53 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 450px;
+    width: 450px;
+    background-color: #fff;
+    color: black;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dialog > img {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 0.3rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.button-container > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    color: black;
+    border-radius: 0.3rem;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: large;
+    letter-spacing: 0.1rem;
+}
