@@ -5,13 +5,15 @@ import '../styles/card.css'
 import { shufflePokemon } from '../usePokemon.ts';
 import type { PokemonSprite } from '../types.tsx';
 
-
-export default function Cards({ pokemons, setPokemons }: { pokemons: PokemonSprite[], setPokemons: React.Dispatch<React.SetStateAction<PokemonSprite[]>> }) {
+export default function Cards({ pokemons, setPokemons, onClick }: { pokemons: PokemonSprite[], setPokemons: React.Dispatch<React.SetStateAction<PokemonSprite[]>>, onClick: (clickedPokemon: string) => void }) {
     const [isActive, setIsActive] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = (name: string) => {
         if (isAnimating) return;
+
+        // tell App which card was clicked
+        onClick(name);
 
         setIsAnimating(true);
         setIsActive(false);
@@ -30,10 +32,7 @@ export default function Cards({ pokemons, setPokemons }: { pokemons: PokemonSpri
     return (
         <div className={`cards-container${isActive ? ' flipped' : ''}`}>
             {pokemons.map(sprite =>
-                <Card key={sprite.name} onClick={() => {
-                    handleClick();
-                }}
-                    sprite={sprite} />
+                <Card key={sprite.name} onClick={() => handleClick(sprite.name)} sprite={sprite} />
             )}
         </div>
     )

@@ -9,7 +9,6 @@ function shufflePokemon(sprites: PokemonSprite[]) {
         sprites[randomIndex] = sprites[lastIndex];
         sprites[lastIndex] = temp;
         lastIndex -= 1;
-        console.log("shuffled");
     }
 
     return [...sprites];
