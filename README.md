@@ -1,75 +1,54 @@
-# React + TypeScript + Vite
+# Memory Card Game - Pokemon Edition
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Pokemon-themed memory card game built with React, TypeScript, and Vite. The objective is to click on each Pokemon card only once without repeating. Cards shuffle after each click to test your memory.
 
-Currently, two official plugins are available:
+## React Concepts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project demonstrates the following React concepts:
 
-## React Compiler
+- **State Management**: Using `useState` to manage game state, scores, selected Pokemon, and UI states
+- **Side Effects**: Using `useEffect` to handle data fetching and component lifecycle events
+- **Custom Hooks**: Implementation of custom hooks for Pokemon data fetching and game logic
+- **Component Composition**: Breaking down the UI into reusable components (Cards, Card, Dialogs)
+- **Props and Prop Drilling**: Passing data and callbacks between parent and child components
+- **Conditional Rendering**: Displaying different UI states based on game status (start, playing, win, lose)
+- **Event Handling**: Managing user interactions with click handlers
+- **TypeScript Integration**: Type-safe props, state, and function signatures
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Branches
 
-Note: This will impact Vite dev & build performances.
+### Main Branch
 
-## Expanding the ESLint configuration
+The main branch implements Pokemon data fetching using vanilla JavaScript with the native `fetch` API. This approach demonstrates:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Direct API calls to PokeAPI
+- Promise handling with `Promise.all`
+- Basic async/await patterns
+- Manual data transformation and state updates
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### React Query Branch
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The `react-query-branch` utilises TanStack Query (React Query) for data fetching and caching. This implementation:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Prevents excessive API calls through caching
+- Stores previously fetched Pokemon data to avoid redundant network requests
+- Optimises application performance by retrieving cached data when the same Pokemon is randomly selected in future rounds
+- Implements manual cache checking and React Query's built-in caching mechanisms
+- Includes React Query DevTools for debugging and monitoring cache behavior
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The React Query implementation significantly reduces API usage as more Pokemon are encountered during gameplay, leading to faster load times and a better user experience.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Technologies Used
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React
+- TypeScript
+- Vite
+- PokeAPI
+- TanStack Query (react-query-branch only)
+
+## Setup
+
+```bash
+npm install
+npm run dev
 ```

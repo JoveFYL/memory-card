@@ -32,7 +32,7 @@ function generateUniqueRandom(amount: number) {
     return set;
 }
 
-function usePokemon(amount: number, round: number, fetchData: boolean): {
+function usePokemon(amount: number, fetchData: boolean): {
     data: PokemonSprite[];
     isLoading: boolean;
 } {
@@ -57,6 +57,7 @@ function usePokemon(amount: number, round: number, fetchData: boolean): {
                 results.map((res) => res.json())
             );
             const sprites = jsonData.map(data => ({
+                id: data.id,
                 name: data.name,
                 front_default: data.sprites.front_default,
                 front_shiny: data.sprites.front_shiny,
@@ -73,7 +74,7 @@ function usePokemon(amount: number, round: number, fetchData: boolean): {
         return () => {
             ignore = true;
         };
-    }, [amount, round, fetchData]);
+    }, [amount, fetchData]);
 
     return { data, isLoading };
 }

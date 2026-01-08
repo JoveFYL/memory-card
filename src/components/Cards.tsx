@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Card from "./Card";
 import '../styles/styles.css'
 import '../styles/card.css'
 import { shufflePokemon } from '../usePokemon.ts';
 import type { PokemonSprite } from '../types.tsx';
 
-export default function Cards({ pokemons, setPokemons, onClick }: { pokemons: PokemonSprite[], setPokemons: React.Dispatch<React.SetStateAction<PokemonSprite[]>>, onClick: (clickedPokemon: string) => void }) {
+export default function Cards({ pokemons, onClick }: { pokemons: PokemonSprite[], onClick: (clickedPokemon: string) => void }) {
+    const [shuffledPokemons, setShuffledPokemons] = useState<PokemonSprite[]>(pokemons);
     const [isActive, setIsActive] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
 
@@ -20,7 +21,7 @@ export default function Cards({ pokemons, setPokemons, onClick }: { pokemons: Po
 
         // deconflict shuffling and animation timing to prevent race conditions
         setTimeout(() => {
-            setPokemons(prev => shufflePokemon(prev));
+            setShuffledPokemons(prev => shufflePokemon(prev));
         }, 900);
 
         setTimeout(() => {
@@ -31,7 +32,7 @@ export default function Cards({ pokemons, setPokemons, onClick }: { pokemons: Po
 
     return (
         <div className={`cards-container${isActive ? ' flipped' : ''}`}>
-            {pokemons.map(sprite =>
+            {shuffledPokemons.map(sprite =>
                 <Card key={sprite.name} onClick={() => handleClick(sprite.name)} sprite={sprite} />
             )}
         </div>

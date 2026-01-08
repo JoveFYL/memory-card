@@ -61,6 +61,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;  
+    margin: 1rem 0;
 }
 
 
