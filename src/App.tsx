@@ -5,6 +5,7 @@ import type { GameStatus, PokemonSprite } from './types';
 import Cards from './components/Cards';
 import Dialog from './components/Dialog';
 import StartDialog from './components/StartDialog';
+import Loader from './components/Loader';
 
 function App() {
     const [cards, setCards] = useState(5);
@@ -68,7 +69,7 @@ function App() {
     }, [sprites]);
 
     if (isLoading && gameStatus === "playing") {
-        return <h1>Loading...</h1>;
+        return <Loader />;
     }
 
     return (
